@@ -1,0 +1,883 @@
+CREATE TABLE Members
+( std_id      char(9)        NOT NULL,
+  std_name    varchar(15)    NOT NULL,
+  std_surname varchar(15)    NOT NULL,
+  std_faculty varchar(35)    NOT NULL,
+  std_major   varchar(15)    NOT NULL,
+  std_email   varchar(25)    NOT NULL,
+  PRIMARY KEY (std_id));
+
+CREATE TABLE Certificate 
+(
+  certificate_id   char(6)  NOT NULL,
+  certificate_res  char(6)  NOT NULL,
+  std_id           char(9)  NOT NULL,
+  signed_by     varchar(15) NOT NULL,
+  PRIMARY key (certificate_id),
+  FOREIGN KEY (std_id) references Members (std_id));
+
+CREATE TABLE MemebersPhone_nr
+(
+  Phone_nr    Char(15)     NOT NULL,
+  std_id      char(9)      NOT NULL,
+  PRIMARY key (Phone_nr),
+  FOREIGN KEY (std_id) references Members (std_id));
+
+CREATE table Clubs
+(
+  Club_id        char(4)     NOT NULL,
+  Club_name      varchar(30) NOT NULL,
+  club_capacity  int         NOT NULL,
+  Created_date   Date        NOT NULL,
+  PRIMARY KEY (Club_id)
+);
+ 
+
+CREATE table PartOf
+(
+  Club_id char(4) NOT NULL,
+  std_id char(9) NOT NULL,
+  FOREIGN KEY (std_id)REFERENCES Members (std_id),
+  FOREIGN KEY (Club_id) REFERENCES Clubs (Club_id));
+
+CREATE table StaffRole
+(
+  Role_id   char(8)     NOT NULL,
+  role_name varchar(15) NOT NULL,
+  PRIMARY KEY (Role_id)
+);
+
+
+CREATE table ClubStaff
+(
+  clubstaff_id char(9)     NOT  NULL,
+  Pers_name     varchar(10) NOT NULL,
+  Pers_surname  varchar(10) NOT NULL,
+  Club_id      char(4)     NOT NULL,
+  Role_id      char(8)     NOT NULL,
+  PRIMARY KEY ( clubstaff_id),
+  FOREIGN KEY (Club_id) REFERENCES Clubs (Club_id),
+  FOREIGN KEY (Role_id) REFERENCES StaffRole (Role_id));
+
+
+CREATE TABLE Activities
+(
+  Activity_name varchar(50) NOT NULL,
+  date          Date        NOT NULL,
+  hour          time    Not NULL,
+  capacity      int         not NULL,
+  place         varchar(15) NOT NULL,
+  guest_name    varchar(15),
+  Club_id       char(4)     NOT NULL,
+  PRIMARY KEY   (Activity_name),
+  FOREIGN KEY  (Club_id) REFERENCES Clubs(Club_id)
+  );
+
+CREATE  TABLE  part_of
+(
+  std_id         char(9)     NOT NULL,
+  activity_name  varchar(50) NOT NULL,
+  FOREIGN KEY (std_id) REFERENCES Members (std_id),
+  FOREIGN KEY  (activity_name) REFERENCES Activities(activity_name)
+  );
+  
+
+
+INSERT INTO Clubs VALUES('001','Epoka University Book Club','30','15/10/2018');
+INSERT INTO Clubs VALUES('002','Epoka University Sports Club','30','21/10/2018');
+INSERT INTO Clubs VALUES('003','Conflict Resolution Club','30','23/10/2021');
+INSERT INTO Clubs VALUES('004','Sensitive Society Club','30','27/10/2021');
+INSERT INTO Clubs VALUES('005','Computer Age Club','30','30/10/2019');
+INSERT INTO Clubs VALUES('006','Entrepreneur Club','30','05/11/2020');
+INSERT INTO Clubs VALUES('007','Programming Club','30','10/03/2020');
+INSERT INTO Clubs VALUES('008','Theater Club','30','10/11/2021');
+INSERT INTO Clubs VALUES('009','Archispace Club','30','13/05/2020');
+INSERT INTO Clubs VALUES('010','Future Engineers Club','30','18/12/2021');
+INSERT INTO Clubs VALUES('011','Music Club','30','24/11/2021');
+INSERT INTO Clubs VALUES('012','Young Economists Club','30','17/01/2018');
+INSERT INTO Clubs VALUES('013','New Generation Club','30','20/11/2019');
+INSERT INTO Clubs VALUES('014','Art of Choice Club','30','12/12/2018');
+INSERT INTO Clubs VALUES('015','New Leaders Club','30','28/02/2019');
+
+
+INSERT Into Members VALUES('02052106','Era','Mulla','Department of Computer Engineering','Software Engineering','emulla21@epoka.edu.al');
+INSERT Into Members VALUES('02052107','Greisi','Jaho','Department of Computer Engineering','Software Engineering','gjaho21@epoka.edu.al');
+INSERT Into Members VALUES('02052108','David','Keci','Department of Computer Engineering','Software Engineering','dkeci21@epoka.edu.al');
+INSERT Into Members VALUES('02052109','Klea','Haxhiu','Department of Computer Engineering','Software Engineering','khaxhiu21@epoka.edu.al');
+INSERT Into Members VALUES('02052110','Erisa','Zaimi','Department of Computer Engineering','Software Engineering','ezaimi21@epoka.edu.al');
+
+
+INSERT Into Members VALUES('12052206','Klea','Bega','Department of Architecture','Architecture','kbega20@epoka.edu.al');
+INSERT Into Members VALUES('12052207','Frenci','Jani','Department of Architecture','Architecture','fjani21@epoka.edu.al');
+INSERT Into Members VALUES('12052208','Deni','Diu','Department of Architecture','Architecture','ddiu20@epoka.edu.al');
+INSERT Into Members VALUES('12052209','Fiona','Haxhiaj','Department of Architecture','Architecture','fhaxhiaj22@epoka.edu.al');
+INSERT Into Members VALUES('12052210','Daniel','Nelaj','Department of Architecture','Architecture','dnelaj22@epoka.edu.al');
+
+
+INSERT Into Members VALUES('22042006','Berti','Roku','Department of Economics','Economicse','broku20@epoka.edu.al');
+INSERT Into Members VALUES('22042007','Adrian','Kalaja','Department of Economics','Economicse','akalaja22@epoka.edu.al');
+INSERT Into Members VALUES('22042008','Flamur','Begu','Department of Economics','Economicse','fbegu20@epoka.edu.al');
+INSERT Into Members VALUES('22042009','Kristia','Malaj','Department of Economics','Economicse','kmalaj21@epoka.edu.al');
+INSERT Into Members VALUES('22042010','Kosta','Fresku','Department of Economics','Economicse','kfresku22@epoka.edu.al');
+
+
+INSERT Into Members VALUES('32042103','Egli','Soti','Department of Banking and Finance','Banking and Finance','esoti22@epoka.edu.al');
+INSERT Into Members VALUES('32042102','Elio','Valari','Department of Banking and Finance','Banking and Finance','evalari22@epoka.edu.al');
+INSERT Into Members VALUES('32042101','Irisia','Mihali','Department of Banking and Finance','Banking and Finance','imihali21@epoka.edu.al');
+INSERT Into Members VALUES('32042100','Xhesi','Vucaj','Department of Banking and Finance','Banking and Finance','xhvucaj21@epoka.edu.al');
+INSERT Into Members VALUES('32042110','Dea','Deriku','Department of Banking and Finance','Banking and Finance','dderiku20@epoka.edu.al');
+
+
+INSERT Into Members VALUES('42052108','Kejsi','Besimi','Department of Business Administration','Business Administration','kbesimi20@epoka.edu.al');
+INSERT Into Members VALUES('42052109','Katia','Mustafaraj','Department of Business Administration','Business Administration','kmustafaraj21@epoka.edu.al');
+INSERT Into Members VALUES('42052104','Lise','Betaj','Department of Business Administration','Business Administration','lbetaj22@epoka.edu.al');
+INSERT Into Members VALUES('42052107','Saimir','Dallga','Department of Business Administration','Business Administration','sdallga22@epoka.edu.al');
+INSERT Into Members VALUES('42052118','Odeta','Ujku','Department of Business Administration','Business Administration','oujku20@epoka.edu.al');
+
+
+INSERT Into Members VALUES('52042103','Beart','Rakipaj','Department of Business Informatics','Business Informatics','brakipaj22@epoka.edu.al');
+INSERT Into Members VALUES('52042102','Frenk','Baroku','Department of Business Informatics','Business Informatics','fbaroku21@epoka.edu.al');
+INSERT Into Members VALUES('52042101','Antonela','Gjinaj','Department of Business Informatics','Business Informatics','agjinaj22@epoka.edu.al');
+INSERT Into Members VALUES('52042100','Valdrin','Ballo','Department of Business Informatics','Business Informatics','vballo20@epoka.edu.al');
+INSERT Into Members VALUES('52042110','Olta','Krena','Department of Business Informatics','Business Informatics','okrena@epoka.edu.al');
+
+
+INSERT Into Members VALUES('62052240','Denisse','Shaw','Department of Civil Engineering','Civil Engineering','dshaw20@epoka.edu.al');
+INSERT Into Members VALUES('62052241','Albert','Prendi','Department of Civil Engineering','Civil Engineering','aprndi20@epoka.edu.al');
+INSERT Into Members VALUES('62052242','Denis','Syla','Department of Civil Engineering','Civil Engineering','dsyla20@epoka.edu.al');
+INSERT Into Members VALUES('62052243','Klement',' Çela','Department of Civil Engineering','Civil Engineering','kcela20@epoka.edu.al');
+INSERT Into Members VALUES('62052244','Denisse','Dervishi','Department of Civil Engineering','Civil Engineering','ddervishi20@epoka.edu.al');
+
+
+INSERT Into Members VALUES('72052270','Sinan','Kola','Department of Law','Civil Engineering','skola20@epoka.edu.al');
+INSERT Into Members VALUES('72052271','Arben','Muco','Department of Law','Civil Engineering','amuco20@epoka.edu.al');
+INSERT Into Members VALUES('72052272','Megi','Ruci','Department of Law','Civil Engineering','mruci20@epoka.edu.al');
+INSERT Into Members VALUES('72052273','Sara',' Spahiu','Department of Law','Civil Engineering','sspahiu20@epoka.edu.al');
+INSERT Into Members VALUES('72052274','Kjara','Halili','Department of Law','Civil Engineering','khalili20@epoka.edu.al');
+
+
+INSERT Into Members VALUES('82052290','Samanta','Cungu','Department of Political Science and International Relations','Political Science and International Relations','scungu20@epoka.edu.al');
+INSERT Into Members VALUES('82052291','Melisa','Tafili','Department of Political Science and International Relations','Political Science and International Relations','mtafili20@epoka.edu.al');
+INSERT Into Members VALUES('82052292','Kejsi','Marku','Department of Political Science and International Relations','Political Science and International Relations','kmarku20@epoka.edu.al');
+INSERT Into Members VALUES('82052293','Alda',' Pjetri','Department of Political Science and International Relations','Political Science and International Relations','apjetri20@epoka.edu.al');
+INSERT Into Members VALUES('82052294','Aldo','Pemaj','Department of Political Science and International Relations','Political Science and International Relations','apemaj20@epoka.edu.al');
+
+
+INSERT INTO MemebersPhone_nr VALUES('0682534651','02052106');
+INSERT INTO MemebersPhone_nr VALUES('0691336551','02052107');
+INSERT INTO MemebersPhone_nr VALUES('0682232215','02052108');
+INSERT INTO MemebersPhone_nr VALUES('0671389755','02052109');
+INSERT INTO MemebersPhone_nr VALUES('0694244664','02052110');
+
+
+INSERT INTO MemebersPhone_nr VALUES('0682267992','12052206');
+INSERT INTO MemebersPhone_nr VALUES('0673266585','12052207');
+INSERT INTO MemebersPhone_nr VALUES('0694467994','12052208');
+INSERT INTO MemebersPhone_nr VALUES('0671167111','12052209');
+INSERT INTO MemebersPhone_nr VALUES('0693577235','12052210');
+
+
+INSERT INTO MemebersPhone_nr VALUES('0695199763','22042006');
+INSERT INTO MemebersPhone_nr VALUES('0692167934','22042007');
+INSERT INTO MemebersPhone_nr VALUES('0675576832','22042008');
+INSERT INTO MemebersPhone_nr VALUES('0683367523','22042009');
+INSERT INTO MemebersPhone_nr VALUES('0674562341','22042010');
+
+
+INSERT INTO MemebersPhone_nr VALUES('0693276433','32042103');
+INSERT INTO MemebersPhone_nr VALUES('0691277994','32042102');
+INSERT INTO MemebersPhone_nr VALUES('0673467881','32042101');
+INSERT INTO MemebersPhone_nr VALUES('0671259834','32042100');
+INSERT INTO MemebersPhone_nr VALUES('0694138771','32042110');
+
+
+INSERT INTO MemebersPhone_nr VALUES('0682276981','42052108');
+INSERT INTO MemebersPhone_nr VALUES('0675432333','42052109');
+INSERT INTO MemebersPhone_nr VALUES('0685176564','42052104');
+INSERT INTO MemebersPhone_nr VALUES('0695477882','42052107');
+INSERT INTO MemebersPhone_nr VALUES('0691266853','42052118');
+
+
+INSERT INTO MemebersPhone_nr VALUES('0683500662','52042103');
+INSERT INTO MemebersPhone_nr VALUES('0681400073','52042102');
+INSERT INTO MemebersPhone_nr VALUES('0673399001','52042101');
+INSERT INTO MemebersPhone_nr VALUES('0681398022','52042100');
+INSERT INTO MemebersPhone_nr VALUES('0694590005','52042110');
+
+
+INSERT INTO MemebersPhone_nr VALUES('0696663780','62052240');
+INSERT INTO MemebersPhone_nr VALUES('0696763789','62052241');
+INSERT INTO MemebersPhone_nr VALUES('0696863786','602052242');
+INSERT INTO MemebersPhone_nr VALUES('0696963788','62052243');
+INSERT INTO MemebersPhone_nr VALUES('0686163784','62052244');
+
+
+INSERT INTO MemebersPhone_nr VALUES('0686163782','72052270');
+INSERT INTO MemebersPhone_nr VALUES('0686763783','72052271');
+INSERT INTO MemebersPhone_nr VALUES('0686863784','72052272');
+INSERT INTO MemebersPhone_nr VALUES('0686963785','72052273');
+INSERT INTO MemebersPhone_nr VALUES('0686163786','72052274');
+
+
+INSERT INTO MemebersPhone_nr VALUES('0676663770','82052290');
+INSERT INTO MemebersPhone_nr VALUES('0676763779','82052291');
+INSERT INTO MemebersPhone_nr VALUES('0676863776','82052292');
+INSERT INTO MemebersPhone_nr VALUES('0676963778','82052293');
+INSERT INTO MemebersPhone_nr VALUES('0676163774','82052294');
+
+
+INSERT INTO PartOf VALUES('001','12052206');
+INSERT INTO PartOf VALUES('001','22042006');
+INSERT INTO PartOf VALUES('001','42052108');
+INSERT INTO PartOf VALUES('001','32042103');
+INSERT INTO PartOf VALUES('001','52042103');
+
+
+INSERT INTO PartOf VALUES('002','62052240');
+INSERT INTO PartOf VALUES('002','72052270');
+INSERT INTO PartOf VALUES('002','82052290');
+INSERT INTO PartOf VALUES('002','02052107');
+INSERT INTO PartOf VALUES('002','12052207');
+
+
+INSERT INTO PartOf VALUES('003','22042007');
+INSERT INTO PartOf VALUES('003','32042102');
+INSERT INTO PartOf VALUES('003','42052109');
+INSERT INTO PartOf VALUES('003','52042102');
+INSERT INTO PartOf VALUES('003','62052241');
+
+
+INSERT INTO PartOf VALUES('004','72052271');
+INSERT INTO PartOf VALUES('004','82052291');
+INSERT INTO PartOf VALUES('004','82052292');
+INSERT INTO PartOf VALUES('004','72052272');
+INSERT INTO PartOf VALUES('004','62052242');
+
+
+INSERT INTO PartOf VALUES('005','52042101');
+INSERT INTO PartOf VALUES('005','42052104');
+INSERT INTO PartOf VALUES('005','32042101');
+INSERT INTO PartOf VALUES('005','22042008');
+INSERT INTO PartOf VALUES('005','12052208');
+
+
+INSERT INTO PartOf VALUES('006','02052109');
+INSERT INTO PartOf VALUES('006','12052209');
+INSERT INTO PartOf VALUES('006','22042009');
+INSERT INTO PartOf VALUES('006','22042010');
+INSERT INTO PartOf VALUES('006','32042100');
+
+
+INSERT INTO PartOf VALUES('007','02052106');
+INSERT INTO PartOf VALUES('007','02052107');
+INSERT INTO PartOf VALUES('007','02052108');
+INSERT INTO PartOf VALUES('007','72052274');
+INSERT INTO PartOf VALUES('007','02052110');
+
+
+INSERT INTO PartOf VALUES('008','42052107');
+INSERT INTO PartOf VALUES('008','52042100');
+INSERT INTO PartOf VALUES('008','62052243');
+INSERT INTO PartOf VALUES('008','72052273');
+INSERT INTO PartOf VALUES('008','82052293');
+  
+
+INSERT INTO PartOf VALUES('009','62052244');
+INSERT INTO PartOf VALUES('009','12052207');
+INSERT INTO PartOf VALUES('009','12052210');
+INSERT INTO PartOf VALUES('009','82052294');
+INSERT INTO PartOf VALUES('009','72052273');
+
+
+INSERT INTO PartOf VALUES('010','02052109');
+INSERT INTO PartOf VALUES('010','02052107');
+INSERT INTO PartOf VALUES('010','62052243');
+INSERT INTO PartOf VALUES('010','62052241');
+INSERT INTO PartOf VALUES('010','32042110');
+
+
+INSERT INTO PartOf VALUES('011','22042008');
+INSERT INTO PartOf VALUES('011','32042101');
+INSERT INTO PartOf VALUES('011','52042100');
+INSERT INTO PartOf VALUES('011','52042101');
+INSERT INTO PartOf VALUES('011','62052242');
+
+
+INSERT INTO PartOf VALUES('012','42052118');
+INSERT INTO PartOf VALUES('012','22042009');
+INSERT INTO PartOf VALUES('012','32042103');
+INSERT INTO PartOf VALUES('012','32042100');
+INSERT INTO PartOf VALUES('012','42052108');
+
+
+INSERT INTO PartOf VALUES('013','02052106');
+INSERT INTO PartOf VALUES('013','72052273');
+INSERT INTO PartOf VALUES('013','82052293');
+INSERT INTO PartOf VALUES('013','62052243');
+INSERT INTO PartOf VALUES('013','12052210');
+
+
+INSERT INTO PartOf VALUES('014','02052107');
+INSERT INTO PartOf VALUES('014','12052207');
+INSERT INTO PartOf VALUES('014','52042102');
+INSERT INTO PartOf VALUES('014','72052271');
+INSERT INTO PartOf VALUES('014','82052291');
+
+
+INSERT INTO PartOf VALUES('015','02052108');
+INSERT INTO PartOf VALUES('015','32042101');
+INSERT INTO PartOf VALUES('015','52042110');
+INSERT INTO PartOf VALUES('015','62052242');
+INSERT INTO PartOf VALUES('015','82052292');
+
+
+INSERT INTO ClubStaff VALUES('2227','Gil','Heranan','001','5560');
+INSERT INTO ClubStaff VALUES('2228','Aranit','Balla','001','5561');
+INSERT INTO ClubStaff VALUES('2229','Arber','Gjoni','001','5562');
+INSERT INTO ClubStaff VALUES('2230','Aril','Brahimi','001','5563');
+INSERT INTO ClubStaff VALUES('2231','Arion','Kannani','001','5564');
+
+
+INSERT INTO ClubStaff VALUES('2232','Elira','Kodra','002','5565');
+INSERT INTO ClubStaff VALUES('2233','Indrit','Lako','002','5566');
+INSERT INTO ClubStaff VALUES('2234','Ekzon','Osmani','002','5567');
+INSERT INTO ClubStaff VALUES('2235','Erion','Pano','002','5568');
+INSERT INTO ClubStaff VALUES('2236','Enver','Bardhi','002','5569');
+
+
+INSERT INTO ClubStaff VALUES('2237','Fatmira','Niko','003','5570');
+INSERT INTO ClubStaff VALUES('2238','Fatjon','Cani','003','5571');
+INSERT INTO ClubStaff VALUES('2239','Fitim','Hasa','003','5572');
+INSERT INTO ClubStaff VALUES('2240','Flamur','Kasa','003','5573');
+INSERT INTO ClubStaff VALUES('2241','Flori','Mema','003','5574');
+
+
+INSERT INTO ClubStaff VALUES('2242','Flutura','Duro','004','5575');
+INSERT INTO ClubStaff VALUES('2243','Genti','Kote','004','5576');
+INSERT INTO ClubStaff VALUES('2244','Geri','Lamberi','004','5577');
+INSERT INTO ClubStaff VALUES('2245','Ilir','Laze','004','5578');
+INSERT INTO ClubStaff VALUES('2246','Jeton','Manaj','004','5579');
+
+
+INSERT INTO ClubStaff VALUES('2247','Lindita','Berberi','005','5580');
+INSERT INTO ClubStaff VALUES('2248','Luan','Elezi','005','5581');
+INSERT INTO ClubStaff VALUES('2249','Lule','Marku','005','5582');
+INSERT INTO ClubStaff VALUES('2250','Laert','Deda','005','5583');
+INSERT INTO ClubStaff VALUES('2251','Mimoza','Jakupi','005','5584');
+
+
+INSERT INTO ClubStaff VALUES('2252','Rovena','Vata','006','5585');
+INSERT INTO ClubStaff VALUES('2253','Elavana','Raxha','006','5586');
+INSERT INTO ClubStaff VALUES('2254','Arbenita','Nikolla','006','5587');
+INSERT INTO ClubStaff VALUES('2255','Teuta','Begu','006','5588');
+INSERT INTO ClubStaff VALUES('2256','Valbona','Madhi','006','5589');
+
+
+INSERT Into ClubStaff VALUES('2257','Andres','Agata','007','5590');
+INSERT Into ClubStaff VALUES('2258','Bianka','Qelia','007','5591');
+INSERT Into ClubStaff VALUES('2259','Dolores','Darbi','007','5592');
+INSERT Into ClubStaff VALUES('2260','Felicia','Estina','007','5593');
+INSERT Into ClubStaff VALUES('2261','Hilda','Shtino','007','5594');
+
+
+INSERT Into ClubStaff VALUES('2262','Pamela','Pani','008','5595');
+INSERT Into ClubStaff VALUES('2263','Albana','Kolmarku','008','5596');
+INSERT Into ClubStaff VALUES('2264','Aida','Makia','008','5597');
+INSERT Into ClubStaff VALUES('2265','Xhina','Ortikulli','008','5598');
+INSERT Into ClubStaff VALUES('2266','Zelda','Fshati','008','5599');
+
+
+INSERT Into ClubStaff VALUES('2267','Enriko','Mali','009','5600');
+INSERT Into ClubStaff VALUES('2268','Ardi','Stuhi','009','5601');
+INSERT Into ClubStaff VALUES('2269','Flora','Burgulli','009','5602');
+INSERT Into ClubStaff VALUES('2270','Mustafa','Mallunxa','009','5603');
+INSERT Into ClubStaff VALUES('2271','Tina','Vomi','009','5604');
+
+
+INSERT Into ClubStaff VALUES('2272','Dora','Njemza','010','5605');
+INSERT Into ClubStaff VALUES('2273','Sokol','Bermulli','010','5606');
+INSERT Into ClubStaff VALUES('2274','Tea','Benga','010','5607');
+INSERT Into ClubStaff VALUES('2275','Olivia','Kokoshi','010','5608');
+INSERT Into ClubStaff VALUES('2276','Majlinda','Namuzi','010','5609');
+
+
+INSERT Into ClubStaff VALUES('2277','Sandri','Alhysa','011','5610');
+INSERT Into ClubStaff VALUES('2278','Arber','Kecia','011','5611');
+INSERT Into ClubStaff VALUES('2279','Xhoana','Urimi','011','5612');
+INSERT Into ClubStaff VALUES('2280','Vullnet','Brimaj','011','5613');
+INSERT Into ClubStaff VALUES('2281','Eglantina','Lushi','011','5614');
+
+
+INSERT Into ClubStaff VALUES('2282','Klaudia','Selma','012','5615');
+INSERT Into ClubStaff VALUES('2283','Jovan','Marko','012','5616');
+INSERT Into ClubStaff VALUES('2284','Betim','Haziza','012','5618');
+INSERT Into ClubStaff VALUES('2285','Valentin','Stojku','012','5619');
+INSERT Into ClubStaff VALUES('2286','Mirea','Kushi','012','5620');
+
+
+INSERT Into ClubStaff VALUES('2287','Erla','Krumi','013','5621');
+INSERT Into ClubStaff VALUES('2288','Irma','Lleshi','013','5622');
+INSERT Into ClubStaff VALUES('2289','Sadi','Jano','013','5623');
+INSERT Into ClubStaff VALUES('2290','Ersida','Haxhiaj','013','5624');
+INSERT Into ClubStaff VALUES('2291','Xhengis','Vrapi','013','5625');
+
+
+INSERT Into ClubStaff VALUES('2292','Islam','Guri','014','5626');
+INSERT Into ClubStaff VALUES('2293','Alvin','Rrapi','014','5627');
+INSERT Into ClubStaff VALUES('2294','Bora','Kelmendi','014','5628');
+INSERT Into ClubStaff VALUES('2295','Aristea','Malaj','014','5629');
+INSERT Into ClubStaff VALUES('2296','Krist','Luni','014','5630');
+
+
+INSERT INTO ClubStaff VALUES('2297','Alvin','Amanda','015','5631');
+INSERT INTO ClubStaff VALUES('2298','Barbara','Cristina','015','5632');
+INSERT INTO ClubStaff VALUES('2299','Cosme','Douglas','015','5633');
+INSERT INTO ClubStaff VALUES('2300','Dalila','Elida','015','5634');
+INSERT INTO ClubStaff VALUES('2301','Erik','Boris','015','5635');
+
+
+INSERT INTO StaffRole VALUES('5560','Club Advisor');
+INSERT INTO StaffRole VALUES('5561','Club President');
+INSERT INTO StaffRole VALUES('5562','Club VicePresident');
+INSERT INTO StaffRole VALUES('5563','Club Secretary');
+INSERT INTO StaffRole VALUES('5564','Club PublicRelations');
+
+
+INSERT INTO StaffRole VALUES('5565','Club Advisor');
+INSERT INTO StaffRole VALUES('5566','Club President');
+INSERT INTO StaffRole VALUES('5567','Club VicePresident');
+INSERT INTO StaffRole VALUES('5568','Club Secretary');
+INSERT INTO StaffRole VALUES('5569','Club PublicRelations');
+
+
+INSERT INTO StaffRole VALUES('5570','Club Advisor');
+INSERT INTO StaffRole VALUES('5571','Club President');
+INSERT INTO StaffRole VALUES('5572','Club VicePresident');
+INSERT INTO StaffRole VALUES('5573','Club Secretary');
+INSERT INTO StaffRole VALUES('5574','Club PublicRelations');
+
+
+INSERT INTO StaffRole VALUES('5575','Club Advisor');
+INSERT INTO StaffRole VALUES('5576','Club President');
+INSERT INTO StaffRole VALUES('5577','Club VicePresident');
+INSERT INTO StaffRole VALUES('5578','Club Secretary');
+INSERT INTO StaffRole VALUES('5579','Club PublicRelations');
+
+
+INSERT INTO StaffRole VALUES('5580','Club Advisor');
+INSERT INTO StaffRole VALUES('5581','Club President');
+INSERT INTO StaffRole VALUES('5582','Club VicePresident');
+INSERT INTO StaffRole VALUES('5583','Club Secretary');
+INSERT INTO StaffRole VALUES('5584','Club PublicRelations');
+
+
+INSERT INTO StaffRole VALUES('5585','Club Advisor');
+INSERT INTO StaffRole VALUES('5586','Club President');
+INSERT INTO StaffRole VALUES('5587','Club VicePresident');
+INSERT INTO StaffRole VALUES('5588','Club Secretary');
+INSERT INTO StaffRole VALUES('5589','Club PublicRelations');
+
+
+INSERT INTO StaffRole VALUES('5590','Club Advisor');
+INSERT INTO StaffRole VALUES('5591','Club President');
+INSERT INTO StaffRole VALUES('5592','Club VicePresident');
+INSERT INTO StaffRole VALUES('5593','Club Secretary');
+INSERT INTO StaffRole VALUES('5594','Club PublicRelations');
+
+
+INSERT INTO StaffRole VALUES('5595','Club Advisor');
+INSERT INTO StaffRole VALUES('5596','Club President');
+INSERT INTO StaffRole VALUES('5597','Club VicePresident');
+INSERT INTO StaffRole VALUES('5598','Club VicePresident');
+INSERT INTO StaffRole VALUES('5599','Club PublicRelations');
+
+
+INSERT INTO StaffRole VALUES('5600','Club Advisor');
+INSERT INTO StaffRole VALUES('5601','Club President');
+INSERT INTO StaffRole VALUES('5602','Club VicePresident');
+INSERT INTO StaffRole VALUES('5603','Club VicePresident');
+INSERT INTO StaffRole VALUES('5604','Club PublicRelations');
+
+
+INSERT INTO StaffRole VALUES('5605','Club Advisor');
+INSERT INTO StaffRole VALUES('5606','Club President');
+INSERT INTO StaffRole VALUES('5607','Club VicePresident');
+INSERT INTO StaffRole VALUES('5608','Club Secretary');
+INSERT INTO StaffRole VALUES('5609','Club PublicRelations');
+
+
+INSERT INTO StaffRole VALUES('5610','Club Advisor');
+INSERT INTO StaffRole VALUES('5611','Club President');
+INSERT INTO StaffRole VALUES('5612','Club VicePresident');
+INSERT INTO StaffRole VALUES('5613','Club Secretary');
+INSERT INTO StaffRole VALUES('5614','Club PublicRelations');
+
+
+INSERT INTO StaffRole VALUES('5615','Club Advisor');
+INSERT INTO StaffRole VALUES('5616','Club President');
+INSERT INTO StaffRole VALUES('5618','Club VicePresident');
+INSERT INTO StaffRole VALUES('5619','Club Secretary');
+INSERT INTO StaffRole VALUES('5620','Club PublicRelations');
+
+
+INSERT INTO StaffRole VALUES('5621','Club Advisor');
+INSERT INTO StaffRole VALUES('5622','Club President');
+INSERT INTO StaffRole VALUES('5623','Club VicePresident');
+INSERT INTO StaffRole VALUES('5624','Club Secretary');
+INSERT INTO StaffRole VALUES('5625','Club PublicRelations');
+
+
+INSERT INTO StaffRole VALUES('5626','Club Advisor');
+INSERT INTO StaffRole VALUES('5627','Club President');
+INSERT INTO StaffRole VALUES('5628','Club VicePresident');
+INSERT INTO StaffRole VALUES('5629','Club Secretary');
+INSERT INTO StaffRole VALUES('5630','Club PublicRelations');
+
+
+INSERT INTO StaffRole VALUES('5631','Club Advisor');
+INSERT INTO StaffRole VALUES('5632','Club President');
+INSERT INTO StaffRole VALUES('5633','Club VicePresident');
+INSERT INTO StaffRole VALUES('5634','Club Secretary');
+INSERT INTO StaffRole VALUES('5635','Club PublicRelations');
+
+
+INSERT INTO Activities VALUES('Book of te year','15/02/2023','09:11:11','60','E110','Saimir Mane','001');
+INSERT INTO Activities VALUES('A book can change your life','10/02/2023','09:21:13','60','Conferance Hall','Edi Rama','001');
+INSERT INTO Activities VALUES('Read and live','1/03/2023','09:31:15','60','Conferance Hall','Sali Berisha','001');
+INSERT INTO Activities VALUES('Meeting1','1/03/2023','09:41:17','60','Computer Lab 2','','001');
+INSERT INTO Activities VALUES('Meeting2','22/03/2023','09:51:19','60','Computer Lab 2','','001');
+INSERT INTO Activities VALUES('Meeting3','16/04/2023','09:01:11','60','Computer Lab 3','','001');
+
+
+INSERT INTO Activities VALUES('Football and us','14/02/2023','10:14:11','60','E110','Vasil Naçi','002');
+INSERT INTO Activities VALUES('Basketball and us','11/02/2023','10:21:18','60','Conferance Hall','Behar Çukaj','002');
+INSERT INTO Activities VALUES('Voleyball and us','2/03/2023','10:34:11','60','Conferance Hall','Grigor Joti','002');
+INSERT INTO Activities VALUES('Meeting4','4/03/2023','10:41:14','60','Computer Lab 1','','002');
+INSERT INTO Activities VALUES('Meeting5','23/03/2023','10:51:30','60','Computer Lab 2','','002');
+INSERT INTO Activities VALUES('Meeting6','17/04/2023','10:01:11','60','Computer Lab 1','','002');
+
+
+INSERT INTO Activities VALUES('Life is in conflict','19/02/2023','12:01:11','60','E110',' Artan Dulaku','003');
+INSERT INTO Activities VALUES('Conflicting with me','30/02/2023','12:14:14','60','Conferance Hall','Idajet Ismailaj','003');
+INSERT INTO Activities VALUES('Conflict with arguments','11/03/2023','12:20:15','60','Conferance Hall','Vjollca Hoxha','003');
+INSERT INTO Activities VALUES('Meeting7','3/03/2023','12:19:17','60','Computer Lab 1','','003');
+INSERT INTO Activities VALUES('Meeting8','8/03/2023','12:40:18','60','Computer Lab 1','','003');
+INSERT INTO Activities VALUES('Meeting9','29/05/2023','12:30:19','60','Computer Lab 3','','003');
+
+
+INSERT INTO Activities VALUES('Are you sensitive','25/02/2023','11:11:11','60','E110','Ram Geci','004');
+INSERT INTO Activities VALUES('Is it good or bad','20/02/2023','10:11:11','60','Conferance Hall','Renis Tërshana','004');
+INSERT INTO Activities VALUES('Being sensitive is not forever','1/03/2023','10:11:11','60','Conferance Hall','Irfan Hysenbelliu','004');
+INSERT INTO Activities VALUES('Meeting10','1/03/2023','10:11:11','60','Computer Lab 2','','004');
+INSERT INTO Activities VALUES('Meeting11','30/03/2023','1:11:11','60','Computer Lab 2','','004');
+INSERT INTO Activities VALUES('Meeting12','16/04/2023','13:11:11','60','Computer Lab 1','','004');
+
+
+INSERT INTO Activities VALUES('Computers evolution','20/02/2023','10:10:00','60','E110','Renis Tërshana','005');
+INSERT INTO Activities VALUES('Me and a computer','11/02/2023','11:13:00','60','Conferance Hall','Vilma Nushi','005');
+INSERT INTO Activities VALUES('Is it the best invention yet','11/03/2023','13:13:00','60','Conferance Hall','Tom Doshi','005');
+INSERT INTO Activities VALUES('Meeting13','18/03/2023','15:12:00','60','Computer Lab 2','','005');
+INSERT INTO Activities VALUES('Meeting14','22/03/2023','12:13:00','60','Computer Lab 2','','005');
+INSERT INTO Activities VALUES('Meeting15','17/04/2023','11:15:00','60','Computer Lab 1','','005');
+
+
+INSERT INTO Activities VALUES('Future Entrepreneur','25/02/2023','10:10:11','60','E110','Rrok Gjoka','006');
+INSERT INTO Activities VALUES('Are you an entrepreneur','10/02/2023','11:10:11','60','Conferance Hall','Pëllumb Salillari','006');
+INSERT INTO Activities VALUES('The characteristics of being an entrepreneur','1/03/2023','10:10:11','60','Conferance Hall','Gentjan Sula','006');
+INSERT INTO Activities VALUES('Meeting16','4/03/2023','10:10:11','60','Computer Lab 2','','006');
+INSERT INTO Activities VALUES('Meeting17','22/03/2023','15:10:11','60','Computer Lab 2','','006');
+INSERT INTO Activities VALUES('Meeting18','30/04/2023','14:10:11','60','Computer Lab 3','','006');
+
+
+INSERT INTO Activities VALUES('GDC','11/02/2023','11:11:11','60','E110','Avni Ponari','007');
+INSERT INTO Activities VALUES('Programming with me','10/02/2023','11:11:11','60','Conferance Hall','Agim Zeqo','007');
+INSERT INTO Activities VALUES('Developer lifestyle','11/03/2023','11:11:11','60','Conferance Hall','Aleksandër Frangaj','007');
+INSERT INTO Activities VALUES('Meeting19','11/03/2023','15:11:11','60','Computer Lab 3','','007');
+INSERT INTO Activities VALUES('Meeting20','22/03/2023','13:11:11','60','Computer Lab 3','','007');
+INSERT INTO Activities VALUES('Meeting21','16/04/2023','12:11:11','60','Computer Lab 1','','007');
+
+
+INSERT INTO Activities VALUES('Theater in the past','13/02/2023','10:11:11','60','E110','Eric Poley','008');
+INSERT INTO Activities VALUES('Theater in the future','10/02/2023','12:11:11','60','Conferance Hall','Colin Walsh','008');
+INSERT INTO Activities VALUES('Theater in Albania','12/03/2023','15:11:11','60','Conferance Hall','Dan Rodrigues','008');
+INSERT INTO Activities VALUES('Meeting22','11/03/2023','11:11:11','60','Computer Lab 3','','008');
+INSERT INTO Activities VALUES('Meeting23','22/03/2023','13:11:11','60','Computer Lab 3','','008');
+INSERT INTO Activities VALUES('Meeting24','16/04/2023','12:11:11','60','Computer Lab 1','','008');
+
+
+INSERT INTO Activities VALUES('Me against you','12/02/2023','09:11:11','60','E110',' Michael Fertik','009');
+INSERT INTO Activities VALUES('Archispace mindset','14/02/2023','13:11:11','60','Conferance Hall','Candice Lu','009');
+INSERT INTO Activities VALUES('What is archispace','19/03/2023','10:11:11','60','Conferance Hall',' Joanna Riley','009');
+INSERT INTO Activities VALUES('Meeting25','09/03/2023','11:11:11','60','Computer Lab 2','','009');
+INSERT INTO Activities VALUES('Meeting26','22/03/2023','13:11:11','60','Computer Lab 3','','009');
+INSERT INTO Activities VALUES('Meeting27','16/04/2023','12:11:11','60','Computer Lab 2','','009');
+
+
+INSERT INTO Activities VALUES('How to become an engineer','11/02/2023','11:11:11','60','E110','Todd Marks','010');
+INSERT INTO Activities VALUES('Future Engineers','10/02/2023','11:11:11','60','Conferance Hall','Peter Bonney','010');
+INSERT INTO Activities VALUES('You are an Engineer','11/03/2023','11:11:11','60','Conferance Hall','Cesar Hernandez','010');
+INSERT INTO Activities VALUES('Meeting28','11/03/2023','15:11:11','60','Computer Lab 3','','010');
+INSERT INTO Activities VALUES('Meeting29','22/03/2023','13:11:11','60','Computer Lab 3','','010');
+INSERT INTO Activities VALUES('Meeting30','16/04/2023','12:11:11','60','Computer Lab 1','','010');
+
+
+INSERT INTO Activities VALUES('The art of music','12/02/2023','10:11:11','60','E110',' David Politis','011');
+INSERT INTO Activities VALUES('Concert with Albanian music','14/02/2023','11:11:11','60','Conferance Hall','Tom Montgomery','011');
+INSERT INTO Activities VALUES('Music in the future','11/03/2023','14:11:11','60','Conferance Hall','Samuel Hwang','011');
+INSERT INTO Activities VALUES('Meeting31','29/03/2023','15:11:11','60','Computer Lab 1','','011');
+INSERT INTO Activities VALUES('Meeting32','30/03/2023','13:11:11','60','Computer Lab 3','','011');
+INSERT INTO Activities VALUES('Meeting33','28/04/2023','12:11:11','60','Computer Lab 1','','011');
+
+
+INSERT INTO Activities VALUES('Economy of Albania','29/02/2023','10:11:11','60','E110','Gary Beasley','012');
+INSERT INTO Activities VALUES('Becoming an economist','13/02/2023','14:11:11','60','Conferance Hall','Frida Polli','012');
+INSERT INTO Activities VALUES('The art of economy','11/03/2023','13:11:11','60','Conferance Hall','Naveen Krishnamurthy','012');
+INSERT INTO Activities VALUES('Meeting334','05/03/2023','11:11:11','60','Computer Lab 2','','012');
+INSERT INTO Activities VALUES('Meeting35','22/03/2023','10:11:11','60','Computer Lab 3','','012');
+INSERT INTO Activities VALUES('Meeting36','03/04/2023','16:11:11','60','Computer Lab 3','','012');
+
+
+INSERT INTO Activities VALUES('New mindsets','19/02/2023','15:11:11','60','E110',' Juve Vela','013');
+INSERT INTO Activities VALUES('New generation of 2023','10/02/2023','16:11:11','60','Conferance Hall','Haven Allen','013');
+INSERT INTO Activities VALUES('Us in the future','15/03/2023','11:11:11','60','Conferance Hall',' Jonathan Levine','013');
+INSERT INTO Activities VALUES('Meeting37','11/03/2023','15:11:11','60','Computer Lab 1','','013');
+INSERT INTO Activities VALUES('Meeting38','22/03/2023','14:11:11','60','Computer Lab 1','','013');
+INSERT INTO Activities VALUES('Meeting39','17/04/2023','12:11:11','60','Computer Lab 1','','013');
+
+
+INSERT INTO Activities VALUES('Choose you','11/02/2023','10:11:11','60','E110','Arun Manoharan','014');
+INSERT INTO Activities VALUES('The art of choise','5/02/2023','11:11:11','60','Conferance Hall','Pankaj Gupta','014');
+INSERT INTO Activities VALUES('Is it hard to chose','11/03/2023','16:11:11','60','Conferance Hall',' Garyn Angel','014');
+INSERT INTO Activities VALUES('Meeting40','01/03/2023','15:11:11','60','Computer Lab 2','','014');
+INSERT INTO Activities VALUES('Meeting41','22/03/2023','13:11:11','60','Computer Lab 2','','014');
+INSERT INTO Activities VALUES('Meeting42','14/04/2023','11:11:11','60','Computer Lab 2','','014');
+
+
+INSERT INTO Activities VALUES('Future leaders','16/02/2023','14:11:11','60','E110','John Hui','015');
+INSERT INTO Activities VALUES('How to become a leader','10/02/2023','13:11:11','60','Conferance Hall','Tracy Price','015');
+INSERT INTO Activities VALUES('The art of lidership','15/03/2023','11:11:11','60','Conferance Hall',' Russell Fadel','015');
+INSERT INTO Activities VALUES('Meeting43','11/03/2023','15:11:11','60','Computer Lab 3','','015');
+INSERT INTO Activities VALUES('Meeting44','22/03/2023','13:11:11','60','Computer Lab 3','','015');
+INSERT INTO Activities VALUES('Meeting45','14/04/2023','09:11:11','60','Computer Lab 3','','015');
+
+
+insert into Certificate VALUES("9900","Excellent Achievement","02052106","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9901","Excellent Achievement","02052107","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9902","Excellent Achievement","02052108","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9903","Excellent Achievement","02052109","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9904","Excellent Achievement","02052110","Dean Prof. Dr. Sokol Dervishi");
+
+
+insert into Certificate VALUES("9905","Excellent Achievement","12052206","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9906","Excellent Achievement","12052207","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9907","Excellent Achievement","12052208","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9908","Excellent Achievement","12052209","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9909","Excellent Achievement","12052210","Dean Prof. Dr. Sokol Dervishi");
+
+
+insert into Certificate VALUES("9910","Excellent Achievement","22042006","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9911","Excellent Achievement","22042007","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9912","Excellent Achievement","22042008","Dean PrExcellent Achievementof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9913","Excellent Achievement","22042009","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9914","Excellent Achievement","22042010","Dean Prof. Dr. Sokol Dervishi");
+
+
+insert into Certificate VALUES("9915","Excellent Achievement","32042103","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9916","Excellent Achievement","32042102","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9917","Excellent Achievement","32042101","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9918","Excellent Achievement","32042100","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9919","Excellent Achievement","32042110","Dean Prof. Dr. Sokol Dervishi");
+
+
+insert into Certificate VALUES("9920","Excellent Achievement","42052108","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9921","Excellent Achievement","42052109","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9922","Excellent Achievement","42052104","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9923","Excellent Achievement","42052107","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9924","Excellent Achievement","42052118","Dean Prof. Dr. Sokol Dervishi");
+
+
+insert into Certificate VALUES("9925","Excellent Achievement","52042103","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9926","Excellent Achievement","52042102","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9927","Excellent Achievement","52042101","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9928","Excellent Achievement","52042100","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9929","Excellent Achievement","52042110","Dean Prof. Dr. Sokol Dervishi");
+
+
+insert into Certificate VALUES("9930","Excellent Achievement","62052240","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9931","Excellent Achievement","62052241","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9932","Excellent Achievement","62052242","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9933","Excellent Achievement","62052243","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9934","Excellent Achievement","62052244","Dean Prof. Dr. Sokol Dervishi");
+
+
+insert into Certificate VALUES("9935","Excellent Achievement","72052270","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9936","Excellent Achievement","72052271","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9937","Excellent Achievement","72052272","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9938","Excellent Achievement","72052273","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9939","Excellent Achievement","72052274","Dean Prof. Dr. Sokol Dervishi");
+
+
+insert into Certificate VALUES("9940","Excellent Achievement","82052290","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9941","Excellent Achievement","82052291","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9942","Excellent Achievement","82052292","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9943","Excellent Achievement","82052293","Dean Prof. Dr. Sokol Dervishi");
+insert into Certificate VALUES("9944","Excellent Achievement","82052294","Dean Prof. Dr. Sokol Dervishi");
+
+
+
+insert INTO part_of VALUES ('02052106','GDC');
+insert INTO part_of VALUES ('02052106','Programming with me');
+insert INTO part_of VALUES ('02052106','Developer lifestyle');
+insert INTO part_of VALUES ('02052107','Football and us');
+insert INTO part_of VALUES ('02052107','Basketball and us');
+insert INTO part_of VALUES ('02052107','Voleyball and us');
+insert INTO part_of VALUES ('02052108','GDC');
+insert INTO part_of VALUES ('02052108','Programming with me');
+insert INTO part_of VALUES ('02052108','Developer lifestyle');
+insert INTO part_of VALUES ('02052109','Future Entrepreneur');
+insert INTO part_of VALUES ('02052109','Are you an entrepreneur');
+insert INTO part_of VALUES ('02052109','The characteristics of being an entrepreneur');
+insert INTO part_of VALUES ('02052110','GDC');
+insert INTO part_of VALUES ('02052110','Programming with me');           
+insert INTO part_of VALUES ('02052110','Developer lifestyle');
+
+insert INTO part_of VALUES ('12052206','Book of the year');
+insert INTO part_of VALUES ('12052206','A book can change your life');           
+insert INTO part_of VALUES ('12052206','Read and live');
+insert INTO part_of VALUES ('12052207','Football and us');
+insert INTO part_of VALUES ('12052207','Basketball and us');           
+insert INTO part_of VALUES ('12052207','Voleyball and us');
+insert INTO part_of VALUES ('12052208','Computers evolution');
+insert INTO part_of VALUES ('12052208','Me and a computer');           
+insert INTO part_of VALUES ('12052208','Is it the best invention yet');
+insert INTO part_of VALUES ('12052209','Future Entrepreneur');
+insert INTO part_of VALUES ('12052209','Are you an entrepreneur');           
+insert INTO part_of VALUES ('12052209','The characteristics of being an entrepreneur');
+insert INTO part_of VALUES ('12052210','New mindsets');
+insert INTO part_of VALUES ('12052210','New generation of 2023');           
+insert INTO part_of VALUES ('12052210','Us in the future');
+
+
+
+insert INTO part_of VALUES ('22042006','Book of the year');
+insert INTO part_of VALUES ('22042006','A book can change your life');           
+insert INTO part_of VALUES ('22042006','Read and live');
+insert INTO part_of VALUES ('22042007','Life is in conflict');
+insert INTO part_of VALUES ('22042007','Conflicting with me');           
+insert INTO part_of VALUES ('22042007','Conflict with arguments');
+insert INTO part_of VALUES ('22042008','Computers evolution');
+insert INTO part_of VALUES ('22042008','Me and a computer');           
+insert INTO part_of VALUES ('22042008','Is it the best invention yet');
+insert INTO part_of VALUES ('22042009','Future Entrepreneur');
+insert INTO part_of VALUES ('22042009','Are you an entrepreneur');           
+insert INTO part_of VALUES ('22042009','The characteristics of being an entrepreneur');
+insert INTO part_of VALUES ('22042010','Future Entrepreneur');
+insert INTO part_of VALUES ('22042010','Are you an entrepreneur');           
+insert INTO part_of VALUES ('22042010','The characteristics of being an entrepreneur');
+
+
+insert INTO part_of VALUES ('32042103','Book of the year');
+insert INTO part_of VALUES ('32042103','A book can change your life');           
+insert INTO part_of VALUES ('32042103','Read and live');
+insert INTO part_of VALUES ('32042102','Life is in conflict');
+insert INTO part_of VALUES ('32042102','Conflicting with me');           
+insert INTO part_of VALUES ('32042102','Conflict with arguments');
+insert INTO part_of VALUES ('32042101','Computers evolution');
+insert INTO part_of VALUES ('32042101','Me and a computer');           
+insert INTO part_of VALUES ('32042101','Is it the best invention yet');
+insert INTO part_of VALUES ('32042100','Future Entrepreneur');
+insert INTO part_of VALUES ('32042100','Are you an entrepreneur');           
+insert INTO part_of VALUES ('32042100','The characteristics of being an entrepreneur');
+insert INTO part_of VALUES ('32042110','How to become an engineer');
+insert INTO part_of VALUES ('32042110','Future Engineers');           
+insert INTO part_of VALUES ('32042110','You are an Engineer');
+
+
+
+insert INTO part_of VALUES ('42052108','Book of the year');
+insert INTO part_of VALUES ('42052108','A book can change your life');           
+insert INTO part_of VALUES ('42052108','Read and live');
+insert INTO part_of VALUES ('42052109','Life is in conflict');
+insert INTO part_of VALUES ('42052109','Conflicting with me');           
+insert INTO part_of VALUES ('42052109','Conflict with arguments');
+insert INTO part_of VALUES ('42052104','Computers evolution');
+insert INTO part_of VALUES ('42052104','Me and a computer');           
+insert INTO part_of VALUES ('42052104','Is it the best invention yet');
+insert INTO part_of VALUES ('42052107','Theater in the past');
+insert INTO part_of VALUES ('42052107','Theater in the future');           
+insert INTO part_of VALUES ('42052107','Theater in Albania');
+insert INTO part_of VALUES ('42052118','Economy of Albania');
+insert INTO part_of VALUES ('42052118','Becoming an economist');           
+insert INTO part_of VALUES ('42052118','The art of economy');
+
+
+
+insert INTO part_of VALUES ('52042103','Book of the year');
+insert INTO part_of VALUES ('52042103','A book can change your life');           
+insert INTO part_of VALUES ('52042103','Read and live');
+insert INTO part_of VALUES ('52042102','Life is in conflict');
+insert INTO part_of VALUES ('52042102','Conflicting with me');           
+insert INTO part_of VALUES ('52042102','Conflict with arguments');
+insert INTO part_of VALUES ('52042101','Computers evolution');
+insert INTO part_of VALUES ('52042101','Me and a computer');           
+insert INTO part_of VALUES ('52042101','Is it the best invention yet');
+insert INTO part_of VALUES ('52042100','The art of music');
+insert INTO part_of VALUES ('52042100','Concert with Albanian music');           
+insert INTO part_of VALUES ('52042100','Music in the future');
+insert INTO part_of VALUES ('52042110','Future leaders');
+insert INTO part_of VALUES ('52042110','How to become a leader');           
+insert INTO part_of VALUES ('52042110','The art of lidership');
+
+
+insert INTO part_of VALUES ('62052240','Football and us');
+insert INTO part_of VALUES ('62052240','Basketball and us');           
+insert INTO part_of VALUES ('62052240','Voleyball and us');
+insert INTO part_of VALUES ('62052241','Life is in conflict');
+insert INTO part_of VALUES ('62052241','Conflicting with me');           
+insert INTO part_of VALUES ('62052241','Conflict with arguments');
+insert INTO part_of VALUES ('62052242','Are you sensitive');
+insert INTO part_of VALUES ('62052242','Is it good or bad');           
+insert INTO part_of VALUES ('62052242','Being sensitive is not forever');
+insert INTO part_of VALUES ('62052243','New mindsets');
+insert INTO part_of VALUES ('62052243','New generation of 2023');           
+insert INTO part_of VALUES ('62052243','Us in the future');
+insert INTO part_of VALUES ('62052244','Me against you');
+insert INTO part_of VALUES ('62052244','Archispace mindset');           
+insert INTO part_of VALUES ('62052244','What is archispace');
+
+
+
+insert INTO part_of VALUES ('72052270','Football and us');
+insert INTO part_of VALUES ('72052270','Basketball and us');           
+insert INTO part_of VALUES ('72052270','Voleyball and us');
+insert INTO part_of VALUES ('72052271','Choose you');
+insert INTO part_of VALUES ('72052271','The art of choise');           
+insert INTO part_of VALUES ('72052271','Is it hard to chose');
+insert INTO part_of VALUES ('72052272','Are you sensitive');
+insert INTO part_of VALUES ('72052272','Is it good or bad');           
+insert INTO part_of VALUES ('72052272','Being sensitive is not forever');
+insert INTO part_of VALUES ('72052273','New mindsets');
+insert INTO part_of VALUES ('72052273','New generation of 2023');           
+insert INTO part_of VALUES ('72052273','Us in the future');
+insert INTO part_of VALUES ('72052274','GDC');
+insert INTO part_of VALUES ('72052274','Programming with me');           
+insert INTO part_of VALUES ('72052274','Developer lifestyle');
+
+
+insert INTO part_of VALUES ('82052290','Football and us');
+insert INTO part_of VALUES ('82052290','Basketball and us');           
+insert INTO part_of VALUES ('82052290','Voleyball and us');
+insert INTO part_of VALUES ('82052291','Are you sensitive');
+insert INTO part_of VALUES ('82052291','Is it good or bad');           
+insert INTO part_of VALUES ('82052291','Being sensitive is not forever');
+insert INTO part_of VALUES ('82052292','Are you sensitive');
+insert INTO part_of VALUES ('82052292','Is it good or bad');           
+insert INTO part_of VALUES ('82052292','Being sensitive is not forever');
+insert INTO part_of VALUES ('82052293','New mindsets');
+insert INTO part_of VALUES ('82052293','New generation of 2023');           
+insert INTO part_of VALUES ('82052293','Us in the future');
+insert INTO part_of VALUES ('82052294','How to become an engineer');
+insert INTO part_of VALUES ('82052294','Future Engineers');           
+insert INTO part_of VALUES ('82052294','You are an Engineer');
+
+
